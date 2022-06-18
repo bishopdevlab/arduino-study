@@ -1,20 +1,12 @@
 int trigPin = 2; // trigger pin 설정 (초음파 발생)
 int echoPin = 3; // echo pin 설정 (초음파 수신)
 
-//int speakerPin = 12;  // 피에조 부저 pin 설정
-int green = 8;          // LED Green pin 설정
-int yellow = 9;         // LED Yellow pin 설정
-int red = 10;           // LED Red pin 설정
+int speakerPin = 12;  // 피에조 부저 pin 설정
 
 void setup() {
   Serial.begin(9600);       // 시리얼 속도 설정
   pinMode(echoPin, INPUT);  // echoPin 입력
   pinMode(trigPin, OUTPUT); // trigPin 출력
-
-  // LED
-  pinMode(red, OUTPUT);
-  pinMode(yellow, OUTPUT);
-  pinMode(green, OUTPUT);
 }
 
 void loop() {
@@ -36,45 +28,12 @@ void loop() {
     Serial.print((float)distanceMm / 10);
     Serial.println(" cm");
 
-    /*
     // 부저로 근접 알림
     if (distanceMm < 100)
     {
       Serial.println("Sound!!");
       tone(speakerPin, 500, 500);  // 500 음 높이(주파수), 1000: 지속시간
       delay(1000);
-    }*/
-
-    // LED 초기화 (off)
-    digitalWrite(red, LOW);
-    digitalWrite(yellow, LOW);
-    digitalWrite(green, LOW);
-    delay(50);
-
-    // LED로 근접 알림
-    if (distanceMm < 100)
-    {
-      Serial.println("RED!!");
-      digitalWrite(red, HIGH);
-      digitalWrite(yellow, LOW);
-      digitalWrite(green, LOW);
-      delay(500);
-    }
-    else if (distanceMm >= 100 && distanceMm < 200)
-    {
-      Serial.println("YELLOW!!");
-      digitalWrite(red, LOW);
-      digitalWrite(yellow, HIGH);
-      digitalWrite(green, LOW);
-      delay(500);
-    }
-    else
-    {
-      Serial.println("GREEN!!");
-      digitalWrite(red, LOW);
-      digitalWrite(yellow, LOW);
-      digitalWrite(green, HIGH);
-      delay(500);
     }
   }
   else
